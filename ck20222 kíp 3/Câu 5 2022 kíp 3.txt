@@ -1,0 +1,95 @@
+Cho đầu vào là chuỗi gồm n (n=100) các ngày theo chuẩn năm tháng ngày theo chuẩn, năm là 4 chữ số còn ngày, tháng là 2 chữ số đều dương (vyy-mm-dd), in ra hai ngày trong chuỗi sao cho khoảng thời gian giữa chúng là dài nhất, ngược lại nếu số ngày hợp lệ ít hơn 2 thì in ra "NaN" 
+ Đầu vào (INPUT): gồm n+1 dòng Dòng đầu tiên chửa số ngày
+ Dòng 2 chứa ngày theo chuẩn năm-tháng-ngày
+...
+ Dòng n+1 chứa ngày theo chuẩn năm-tháng-ngày
+ Đầu ra (OUTPUT): gồm 2 dòng - Dòng 1 chứa ngày đầu tiên (begin date) 
+ Dòng 2 chứa ngày cuối cùng (end date)
+  hoặc 1 dòng NaN 
+Ngày đầu tiên đương nhiên phải trước ngày cuối và khoảng thời gian giữa chúng là dài nhất trong các ngày hợp lệ trong chuỗi n ngày đầu vào. 
+ Ví dụ minh họa
+ INPUT
+ 2 
+2023-05-30
+ 2024-02-30
+ OUTPUT
+ NaN
+ INPUT 
+3
+ 2023-05-30 
+2022-04-30 
+2024-02-30 
+OUTPUT 
+2022-04-30 
+2023-05-30
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_DATES 100
+
+typedef struct {
+    int year;
+    int month;
+    int day;
+} Date;
+
+int compareDates(Date date1, Date date2) {
+    if (date1.year != date2.year) {
+        return date1.year - date2.year;
+    } else if (date1.month != date2.month) {
+        return date1.month - date2.month;
+    } else {
+        return date1.day - date2.day;
+    }
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+
+    Date dates[MAX_DATES];
+
+    // Nhập các ngày
+    for (int i = 0; i < n; i++) {
+        scanf("%d-%d-%d", &dates[i].year, &dates[i].month, &dates[i].day);
+    }
+
+    // Sắp xếp các ngày theo thứ tự tăng dần
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (compareDates(dates[i], dates[j]) > 0) {
+                Date temp = dates[i];
+                dates[i] = dates[j];
+                dates[j] = temp;
+            }
+        }
+    }
+
+    // Tìm khoảng thời gian dài nhất
+    int maxDuration = -1;
+    int beginIndex = -1, endIndex = -1;
+
+    for (int i = 0; i < n - 1; i++) {
+        int duration = 0;
+        for (int j = i + 1; j < n; j++) {
+            int diff = (dates[j].year - dates[i].year) * 365 +
+                       (dates[j].month - dates[i].month) * 30 +
+                       (dates[j].day - dates[i].day);
+            if (diff > duration) {
+                duration = diff;
+                beginIndex = i;
+                endIndex = j;
+            }
+        }
+    }
+
+    if (beginIndex == -1 || endIndex == -1) {
+        printf("NaN\n");
+    } else {
+        printf("%d-%02d-%02d\n", dates[beginIndex].year, dates[beginIndex].month, dates[beginIndex].day);
+        printf("%d-%02d-%02d\n", dates[endIndex].year, dates[endIndex].month, dates[endIndex].day);
+    }
+
+    return 0;
+}

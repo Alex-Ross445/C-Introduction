@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <string.h>
+
+void convertPhoneNumber(char* phoneNumber) {
+    int length = strlen(phoneNumber);
+  
+    // Chỉ xét 11 chữ số đầu tiên nếu dữ liệu nhập vào nhiều hơn 11 chữ số
+    if (length > 11) {
+        phoneNumber[11] = '\0';
+        length = 11;
+    }
+    
+    // Loại bỏ chữ số đầu tiên nếu là 0
+    if (phoneNumber[0] == '0') {
+            memmove(phoneNumber, phoneNumber + 1, length);
+            phoneNumber[length - 1] = '\0';
+            length--;
+        }
+    
+    // Nếu độ dài là 10, giữ nguyên số điện thoại
+    if (length == 10) {
+        return;
+    }
+  
+    // Nếu độ dài là 11, kiểm tra các quy tắc chuyển đổi
+    if (length == 11) {
+        // Kiểm tra các mã cũ và chuyển đổi
+        if (strncmp(phoneNumber, "169", 3) == 0) {
+            strncpy(phoneNumber, "39", 2);
+        } else if (strncmp(phoneNumber, "168", 3) == 0) {
+            strncpy(phoneNumber, "38", 2);
+        } else if (strncmp(phoneNumber, "167", 3) == 0) {
+            strncpy(phoneNumber, "37", 2);
+        } else if (strncmp(phoneNumber, "166", 3) == 0) {
+            strncpy(phoneNumber, "36", 2);
+        } else if (strncmp(phoneNumber, "165", 3) == 0) {
+            strncpy(phoneNumber, "35", 2);
+        } else if (strncmp(phoneNumber, "164", 3) == 0) {
+            strncpy(phoneNumber, "34", 2);
+        } else if (strncmp(phoneNumber, "163", 3) == 0) {
+            strncpy(phoneNumber, "33", 2);
+        } else if (strncmp(phoneNumber, "162", 3) == 0) {
+            strncpy(phoneNumber, "32", 2);
+        } else {
+            printf("Khác nhà mạng!\n");
+            return;
+        }
+    } else if(length != 10) {
+        // Nếu không phải 10 chữ số hoặc 11 chữ số, đưa ra thông báo lỗi
+        printf("Số điện thoại không hợp lệ!\n");
+        return;
+    }
+}
+
+int main() {
+    char phoneNumber[20];
+    printf("Nhập số điện thoại: ");
+    scanf("%s", phoneNumber);
+  
+    convertPhoneNumber(phoneNumber);
+  
+    printf("Số điện thoại chuyển đổi: %s\n", phoneNumber);
+  
+    return 0;
+}

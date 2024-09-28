@@ -1,0 +1,58 @@
+Cho danh sách họ tên sinh viên. Cần chuẩn hóa họ tên sinh viên trong danh sách. Cách chuẩn hóa như sauL kí tự đầu mỗi từ trong họ tên phải viết hoa, các kí tự còn lại viết thường. Biết: danh sách cho phép tối đa 100 phần tử. Họ tên cần lưu có tối đa 50 kí tự. Họ tên là kí tự tiếng Việt không dấu.
+Dữ liệu nhập: dòng đầu tiên là số sinh viên trong danh sách. Các dòng tiếp theo là họ tên của từng sinh viên,
+Dữ liệu ra: họ tên sau chuẩn hóa của từng sinh viên trong danh sách, mỗi họ tên 01 dòng.
+Input:
+3
+le ngoc hoang
+Pham duc Phi
+Nguyen Hung Vi
+Output:
+Le Ngoc Hoang
+Pham Duc Chi
+Nguyen Hung Vi
+
+Giải thích:
+3 là số lượng tên trong đầu vào, mỗi tên được viết một dòng.
+Các dòng tiếp theo là tên. Tên KHÔNG có dấu cách đầu hoặc cuối, và mỗi từ chỉ cách Đúng 1 dấu cách!
+Đầu ra: Các tên sau khi đã chuẩn hóa, mỗi tên in ra trên 1 dòng.
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX_STUDENTS 100
+#define MAX_NAME_LENGTH 50
+
+// Hàm chuẩn hóa họ tên
+void standardizeName(char *name) {
+    int len = strlen(name);
+    for (int i = 0; i < len; i++) {
+        // Chuyển kí tự đầu tiên và kí tự sau dấu cách thành chữ hoa
+        if (i == 0 || name[i - 1] == ' ') {
+            name[i] = toupper(name[i]);
+        } else {
+            name[i] = tolower(name[i]);
+        }
+    }
+}
+
+int main() {
+    int numStudents;
+    char names[MAX_STUDENTS][MAX_NAME_LENGTH];
+
+    // Nhập số lượng sinh viên
+    scanf("%d", &numStudents);
+
+    // Đọc tên từng sinh viên và chuẩn hóa
+    for (int i = 0; i < numStudents; i++) {
+        scanf(" %[^\n]", names[i]);  // Đọc tên bỏ qua dấu cách đầu dòng
+        standardizeName(names[i]);   // Chuẩn hóa tên
+    }
+
+    // In ra các tên đã chuẩn hóa
+    for (int i = 0; i < numStudents; i++) {
+        printf("%s\n", names[i]);
+    }
+
+    return 0;
+}

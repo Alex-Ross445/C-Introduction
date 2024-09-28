@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+int main() {
+    int n;
+
+    printf("Nhap vao kich thuoc cua ma tran vuong: ");
+    scanf("%d", &n);
+
+    int matrix[n][n];
+
+    printf("Nhap cac phan tu cua ma tran:\n");
+
+    // Nhập các phần tử của ma trận từ bàn phím
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            printf("Nhap phan tu tai vi tri [%d][%d]: ", i, j);
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+
+    // Kiểm tra xem ma trận có phải là ma trận đơn vị không
+    int isIdentityMatrix = 1;  // Giả sử ban đầu là ma trận đơn vị
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (i == j && matrix[i][j] != 1) {
+                isIdentityMatrix = 0;
+                break;
+            } else if (i != j && matrix[i][j] != 0) {
+                isIdentityMatrix = 0;
+                break;
+            }
+        }
+    }
+
+    // In kết quả kiểm tra
+    if (isIdentityMatrix) {
+        printf("Ma tran la ma tran don vi.\n");
+    } else {
+        printf("Ma tran khong phai la ma tran don vi.\n");
+    }
+
+    return 0;
+}

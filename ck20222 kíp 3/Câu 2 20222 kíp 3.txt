@@ -1,0 +1,44 @@
+Vào mùa hè, chỉ số tia bức xạ cực tím - chỉ số UV rất cao, đặc biệt là buổi trưa và có thể gây nguy hại tới sức khỏe. Bảng chỉ số tia UV phân chia theo thang điểm từ 1 đến 11+ như sau.
++ Chỉ số tia UV 0 - <3(nhỏ hơn 30: chỉ số UV mức thấp(muc thap).
++ Chỉ số UV 3 - <6(nhỏ hơn 6): chỉ số UV ở mức trung bình(muc trung binh).
++ Chỉ số UV 6 - <8(nhỏ hơn 8): chỉ số UV mức cao(muc cao).
++ Chỉ số UV 8 - 11: chỉ số UV mức rất cao(muc rat cao).
++ Chỉ số Uv hơn 11(>11): chỉ số Uv ở mức nguy hiểm(muc nguy hiem).
+
+Hãy viết chương trình nhập vào chỉ số UV dự báo trong ngày và in ra phân loại.
+
+Input:
+2.2
+Output:
+muc thap
+
+Input:
+12.2
+Output:
+muc nguy hiem
+
+Chú ý: Thông báo in ra là tiếng Việt không dấu như mô tả trong ngoặc.
+
+#include <stdio.h>
+
+int main() {
+    float uvIndex;
+
+    // Nhập chỉ số UV
+    scanf("%f", &uvIndex);
+
+    // Xác định phân loại chỉ số UV
+    if (uvIndex < 3.0) {
+        printf("muc thap\n");
+    } else if (uvIndex < 6.0) {
+        printf("muc trung binh\n");
+    } else if (uvIndex < 8.0) {
+        printf("muc cao\n");
+    } else if (uvIndex <= 11.0) {
+        printf("muc rat cao\n");
+    } else {
+        printf("muc nguy hiem\n");
+    }
+
+    return 0;
+}

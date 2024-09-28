@@ -1,0 +1,29 @@
+Lượng mưa sau mỗi đợt mưa được tính theo mm là độ dày nước mưa trên mỗi đơn vị diện tích(nước mưa không bị thấm hay bay hơi).
+ví dụ: Nếu người dân dùng bể 2m3, có diện tích mặt hứng nước mưa là 10m2, sau cơn mưa lượng mưa đo dược 100mm thì thể tích nước trong bể sẽ là 10 x 0.1 1 m3 (1 mét khối).
+Hãy viết chương trình tính toán lượng nước mưa thu được trong bể sau cơn mưa.
+
+Input:
+2.3 25.5 125
+Output:
+2.30
+
+Giải thích:
+Đầu vào gồm 2.3m3 là thể tích tối đa của bể, 25.5m2 là diện tích hứng nước mưa, 125mm là lượng mước mưa đo được.
+Đầu ra thể tích nước mưa hứng được trong bể là 2.30m3
+Đầu ra lấy đến 2 chứ số thập phân.
+
+#include<stdio.h>
+int main(){
+    float max , dientich, chieucao;
+    scanf("%f %f %f",&max ,&dientich,&chieucao);
+    float dulieu;
+    dulieu = (chieucao/1000)*dientich;
+    if (dulieu > max)
+    {
+        printf("%.2f",max);
+    }
+    else{
+        printf("%.2f",dulieu);
+    }
+    return 0;
+}

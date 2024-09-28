@@ -1,0 +1,79 @@
+Một cừa hàng cập nhật bảng giá của từng sản phẩm trong ngày theo dạng
+<mã sản phẩm><giá tiền VND>
+
+Khi khách hàng mua hàng chỉ cần nhập lần lượt mã sản phẩm và số lượng sản phẩm đó trong giỏ hàng thì tổng tiền sẽ được tính và in ra màn hình.
+Hãy viết chương trình C thực hiện việc đó với dữ liệu cho dạng
+
+Input:
+12012 3500
+12013 6500
+12015 7000
+12101 9000
+-1
+2
+12015 1
+12101 2
+
+Output:
+25000
+
+Giải thích:
+Các dòng đầu vào sẽ là mã sản phẩm(kiểu xâu kí tự độ dài 5 ký tự(chữ cái hoặc chữ số), viết liền không có cách trống) và giá của sản phẩm đó(số nguyên)
+Kết thúc thông tin giá sản phẩm sẽ là mã -1
+Dòng tiếp theo sẽ là số lượng mã sản phẩm trong giỏ hàng
+Còng dòng sau đó lần lượt là mã sản phẩm và số lượng
+Đầu ra là tổng tiền của giỏ hàng
+1 sản phẩm mã 12015 và 2 mã sản phẩm 12101 sẽ có tổng tiền là 7000 + 9000*2 = 25000
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_PRODUCTS 100
+
+// Struct lưu trữ thông tin sản phẩm
+typedef struct {
+    char code[6];
+    int price;
+} Product;
+
+int main() {
+    Product products[MAX_PRODUCTS];
+    int numProducts = 0;
+
+    // Nhập thông tin sản phẩm
+    while (1) {
+        scanf("%s", products[numProducts].code);
+
+        // Kiểm tra nếu là mã kết thúc
+        if (strcmp(products[numProducts].code, "-1") == 0) {
+            break;
+        }
+
+        scanf("%d", &products[numProducts].price);
+        numProducts++;
+    }
+
+    int numItems;
+    scanf("%d", &numItems);
+
+    int totalCost = 0;
+
+    // Tính tổng tiền của giỏ hàng
+    for (int i = 0; i < numItems; i++) {
+        char code[6];
+        int quantity;
+        scanf("%s %d", code, &quantity);
+
+        // Tìm mã sản phẩm trong danh sách và cộng vào tổng tiền
+        for (int j = 0; j < numProducts; j++) {
+            if (strcmp(products[j].code, code) == 0) {
+                totalCost += products[j].price * quantity;
+                break;
+            }
+        }
+    }
+
+    printf("%d\n", totalCost);
+
+    return 0;
+}
